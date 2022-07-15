@@ -424,6 +424,11 @@ class Panda:
     part_2 = self._handle.controlRead(Panda.REQUEST_IN, 0xd4, 0, 0, 0x40)
     return bytes(part_1 + part_2)
 
+  def get_buildtime(self):
+    part_1 = self._handle.controlRead(Panda.REQUEST_IN, 0xfc, 0, 0, 0x40).decode('utf8')
+    part_2 = self._handle.controlRead(Panda.REQUEST_IN, 0xfd, 0, 0, 0x40).decode('utf8')
+    return part_1 + " " + part_2
+
   def get_type(self):
     return self._handle.controlRead(Panda.REQUEST_IN, 0xc1, 0, 0, 0x40)
 

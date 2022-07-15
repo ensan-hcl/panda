@@ -462,6 +462,16 @@ int usb_cb_control_msg(USB_Setup_TypeDef *setup, uint8_t *resp) {
     case 0xfb:
       deepsleep_requested = true;
       break;
+    case 0xfc:
+    // **** 0xfc: return build date
+      resp_len = 11;
+      (void)memcpy(resp, __DATE__, resp_len);
+      break;
+    case 0xfd:
+    // **** 0xfc: return build date
+      resp_len = 8;
+      (void)memcpy(resp, __TIME__, resp_len);
+      break;
     default:
       puts("NO HANDLER ");
       puth(setup->b.bRequest);

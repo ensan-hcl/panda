@@ -179,8 +179,8 @@ for project_name in build_projects:
   bootstub_obj = project_env.Object(f"bootstub-{project_name}", "bootstub.c")
   bootstub_elf = project_env.Program(f"obj/bootstub.{project_name}.elf", [startup] + crypto_obj + [bootstub_obj])
   bootstub_bin = project_env.Objcopy(f"obj/bootstub.{project_name}.bin", bootstub_elf)
-
   # Build main
+  NoCache("usb_comms.h")
   main_obj = project_env.Object(f"main-{project_name}", project["MAIN"])
   main_elf = project_env.Program(f"obj/{project_name}.elf", [startup, main_obj],
     LINKFLAGS=[f"-Wl,--section-start,.isr_vector={project['APP_START_ADDRESS']}"] + flags)
